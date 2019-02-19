@@ -147,7 +147,7 @@ var renderCard = function (ads) {
   cardElement.querySelector('.popup__avatar').src = ads.author.avatar;
 
   mapBlockElement.insertBefore(cardElement, filtersContainerElement);
-  
+
   // закрываем объявление по щелчку на крестик
   var closeButton = cardElement.querySelector('.popup__close');
   closeButton.addEventListener('click', function () {
