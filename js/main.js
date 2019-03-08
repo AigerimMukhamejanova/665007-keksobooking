@@ -296,9 +296,9 @@ var setBorders = function (min, max, current) {
   return value;
 };
 
-mapPinMainElement.addEventListener('mousedown', function(evt) {
+mapPinMainElement.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
-  
+
   // запомним координаты точки начала движения
   var startCoords = {
     x: evt.clientX,
@@ -324,11 +324,11 @@ mapPinMainElement.addEventListener('mousedown', function(evt) {
 
     mapPinMainElement.style.top = (mapPinMainElement.offsetTop - shift.y) + 'px';
     mapPinMainElement.style.left = (mapPinMainElement.offsetLeft - shift.x) + 'px';
-      
+
     // устанавливаем границы для перетаскивания метки по карте
     mapPinMainElement.style.left = setBorders(MIN.X, MAX.X, parseInt(mapPinMainElement.style.left, 10));
     mapPinMainElement.style.top = setBorders(MIN.Y, MAX.Y, parseInt(mapPinMainElement.style.top, 10));
-      
+
     var left = mapPinMainElement.offsetLeft - shift.x;
     if (left > MAX.X) {
       left = MAX.X;
@@ -350,7 +350,7 @@ mapPinMainElement.addEventListener('mousedown', function(evt) {
       inputAddressElement.value = Math.floor(newCoordsX) + ', ' + Math.floor(newCoordsY);
     };
     calcCoordsByArrow(startCoords.x, startCoords.y);
-      
+
   };
   // При отпускании кнопки мыши нужно переставать слушать события движения мыши.
   // При отпускании мыши страница переходит в активный режим
