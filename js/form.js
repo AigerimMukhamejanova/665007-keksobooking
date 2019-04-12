@@ -4,8 +4,22 @@
 (function () {
   var inputAddressElement = document.querySelector('#address');
   var adFormElement = document.querySelector('.ad-form');
+  var accommodationType = adFormElement.querySelector('#type');
+  var priceField = adFormElement.querySelector('#price');
+  var roomNumberField = adFormElement.querySelector('#room_number');
+  var capacityField = adFormElement.querySelector('#capacity');
+  var capacityOptions = Array.from(capacityField.options);
+  var checkInTimeElement = adFormElement.querySelector('#timein');
+  var checkOutTimeElement = adFormElement.querySelector('#timeout');
+  var successElement = document.querySelector('.success');
 
-  // module4-task1
+  var PriceType = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 100000
+  };
+
   // Форма заполнения информации об объявлении .ad-form содержит класс ad-form--disabled;
   var disableAdFormElement = function () {
     adFormElement.classList.add('ad-form--disabled');
@@ -24,23 +38,6 @@
   // добавляем полю адреса атрибут readonly для запрета ручного редактирования
   var setReadOnlyInput = function () {
     inputAddressElement.setAttribute('readonly', true);
-  };
-
-  // module4-task2
-  var accommodationType = adFormElement.querySelector('#type');
-  var priceField = adFormElement.querySelector('#price');
-  var roomNumberField = adFormElement.querySelector('#room_number');
-  var capacityField = adFormElement.querySelector('#capacity');
-  var capacityOptions = Array.from(capacityField.options);
-  var checkInTimeElement = adFormElement.querySelector('#timein');
-  var checkOutTimeElement = adFormElement.querySelector('#timeout');
-  // var successPopup = document.querySelector('.success');
-
-  var PriceType = {
-    bungalo: 0,
-    flat: 1000,
-    house: 5000,
-    palace: 100000
   };
 
   // динамический селект типа жилья и цены
@@ -118,6 +115,39 @@
     isValid(adFormElement.querySelector('#title'));
     isValid(adFormElement.querySelector('#price'));
   });
+
+  var resetAll = function () {
+    window.form.adFormElement.reset();
+    window.filter.mapFiltersElement.reset();
+  };
+
+  var makeSelected = function (element) {
+    element.options[0].disabled = false;
+    element.options[0].selected = true;
+    element.options[0].disabled = true;
+  };
+
+  var onSuccessClose = function (evtDown) {
+    window.util.isEscEvent(evtDown, function () {
+      successElement.classList.add('hidden');
+      document.removeEventListener('keydown', onSuccessClose);
+    });
+  };
+
+  adFormElement.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(adFormElement), function () {
+      successElement.classList.remove('hidden');
+      resetAll();
+
+      adFormElement.querySelector('#description').value = '';
+      makeSelected(roomNumberField);
+      makeSelected(capacityField);
+
+      document.addEventListener('keydown', onSuccessClose);
+    }, window.showError);
+    evt.preventDefault();
+  });
+
 
   window.form = {
     inputAddressElement: inputAddressElement,
