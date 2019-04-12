@@ -134,7 +134,7 @@
       }
       window.pin.similarPinElement.appendChild(fragment);
     };
-    
+
     var successHandler = function (ads) {
       renderPins(ads);
       clickPins(ads);

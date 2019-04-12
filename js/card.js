@@ -80,7 +80,7 @@
       cardElement.querySelector('.popup__photos').insertAdjacentHTML('beforeend', '<img src="' + ads.offer.photos[f] + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">');
     }
     cardElement.querySelector('.popup__avatar').src = ads.author.avatar;
-      
+
     // проверка полей объявлений
     if (ads.offer.title) {
       cardElement.querySelector('.popup__title').textContent = ads.offer.title;
@@ -135,7 +135,7 @@
     } else {
       cardElement.querySelector('.popup__avatar').remove();
     }
-      
+
     window.util.mapBlockElement.insertBefore(cardElement, filtersContainerElement);
 
     // закрываем объявление по щелчку на крестик
